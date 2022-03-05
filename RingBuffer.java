@@ -38,7 +38,7 @@ public class RingBuffer<Item> {
 //            resize(2 * ring.length);
 //            throw new RuntimeException("queue is full, ");
         }
-        ring[last] = x;
+        ring[(int) last] = x;
         last = (last + 1) % capacity();
         n++;
     }
@@ -53,15 +53,17 @@ public class RingBuffer<Item> {
         n--;
         return temp;
 
+
     }
 
-    public Item peek(){
-        if (!isEmpty()) {
-            return ring[first];
-        } else {
-            throw new RuntimeException("Runtime Exception: Queue is empty (--from method PEEK()--)");
+    public double peek(){
+        if (isEmpty()) {
+            throw new RuntimeException("RuntimeException in Ringbuffer: Queue is Empty");
         }
+        double temp = Double.
+        return temp;
     }
+
 
 //    private void resize(int capacity){
 //        assert capacity >= n;
@@ -74,26 +76,26 @@ public class RingBuffer<Item> {
 //        last = n;
 //    }
     public void display() {
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < ring.length; i++){
             StdOut.println(ring[i]);
         }
     }
 
     public static void main(String[] args) {
-        RingBuffer<Double> buffer = new RingBuffer<>(10);
-        int s = 100;
+        RingBuffer<Double> buffer = new RingBuffer<>((int) 5.0);
+        int s = 20;
         for (int i = 1; i <= s; i++) {
             buffer.enqueue((double) i);
         }
         double t = buffer.dequeue();
         buffer.enqueue(t);
         StdOut.println("size after wrap around:" + buffer.size());
-
-        while (buffer.size() <= 2) {
-            double x = buffer.dequeue();
-            double y = buffer.dequeue();
-            buffer.enqueue(x + y);
-        }
+        buffer.display();
+//        while (buffer.size() <= 2) {
+//            double x = buffer.dequeue();
+//            double y = buffer.dequeue();
+//            buffer.enqueue(x + y);
+//        }
         StdOut.println(buffer.peek());
 
 
