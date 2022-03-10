@@ -38,17 +38,17 @@ public class RingBuffer<Item> {
 //            resize(2 * ring.length);
 //            throw new RuntimeException("queue is full, ");
         }
-        ring[(int) last] = x;
+        ring[last] = x;
         last = (last + 1) % capacity();
         n++;
     }
 
     // deletes and returns item at the front of ringbuffer
-    public double dequeue(){
+    public Item dequeue(){
         if (isEmpty()){
             throw new RuntimeException("RuntimeException: Queue is empty!!!");
         }
-        double temp = (double) ring[first];
+        Item temp =  ring[first];
         first = (first + 1) % capacity();
         n--;
         return temp;
@@ -56,12 +56,12 @@ public class RingBuffer<Item> {
 
     }
 
-    public double peek(){
+    public Item peek(){
         if (isEmpty()) {
             throw new RuntimeException("RuntimeException in Ringbuffer: Queue is Empty");
         }
-        double temp = Double.
-        return temp;
+        Item v = ring[first];
+        return v;
     }
 
 
@@ -82,53 +82,14 @@ public class RingBuffer<Item> {
     }
 
     public static void main(String[] args) {
-        RingBuffer<Double> buffer = new RingBuffer<>((int) 5.0);
-        int s = 20;
-        for (int i = 1; i <= s; i++) {
-            buffer.enqueue((double) i);
-        }
-        double t = buffer.dequeue();
-        buffer.enqueue(t);
-        StdOut.println("size after wrap around:" + buffer.size());
+        RingBuffer<Double> buffer = new RingBuffer<>(3);
+        buffer.enqueue(2.0);
+        buffer.enqueue(3.0);
+        buffer.enqueue(4.0);
         buffer.display();
-//        while (buffer.size() <= 2) {
-//            double x = buffer.dequeue();
-//            double y = buffer.dequeue();
-//            buffer.enqueue(x + y);
-//        }
+        StdOut.println("----incoming enqueue while at capacity----");
+
+
         StdOut.println(buffer.peek());
-
-
-        //        buffer.enqueue(0.2);
-//        StdOut.println(buffer.size());
-//        buffer.enqueue(0.1);
-//        StdOut.println(buffer.size());
-//        buffer.enqueue(0.5);
-//        StdOut.println(buffer.size());
-//        buffer.enqueue(0.1);
-//        StdOut.println(buffer.size());
-//        buffer.enqueue(0.1);
-//        StdOut.println(buffer.size());
-//        StdOut.println("--end--");
-//        StdOut.println(buffer.last);
-//
-//        buffer.dequeue();
-//        StdOut.println(buffer.size());
-//        buffer.dequeue();
-//        StdOut.println("------break------");
-//        StdOut.println(buffer.size());
-//        StdOut.println(buffer.first);
-//        StdOut.println(buffer.last);
-//        StdOut.println("--peek--");
-//        StdOut.println(buffer.peek());
-//        StdOut.println("--Display--");
-//        buffer.display();
-//        StdOut.println("");
-
     }
-
-
-
-
-
 }

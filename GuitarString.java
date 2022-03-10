@@ -2,29 +2,15 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class GuitarString {
-    private RingBuffer<Number> guitarString;
+    private RingBuffer<Double> guitarString;
 
     public GuitarString(double frequency) {
         double sampleRate = 44100;
         int n = (int) Math.ceil(sampleRate / frequency);
-        guitarString = new RingBuffer<>(n);
+        guitarString = new RingBuffer<Double>(n);
 
         for (int i = 0; i < guitarString.capacity(); i++) {
-            guitarString.enqueue(0);
-        }
-    }
-    public GuitarString(double[] init){
-        int counter = 0;
-        try {
-            while (true){
-                init[counter] = init[counter];
-                counter += 1;
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            guitarString = new RingBuffer<>(counter);
-            for (int i = 0; i < counter; i++) {
-                guitarString.enqueue(init[i]);
-            }
+            guitarString.enqueue(0.0);
         }
     }
     public int length() {
@@ -40,7 +26,7 @@ public class GuitarString {
     public void tic() {
         double decayFactor = 0.90;
         double replaced = guitarString.dequeue();
-        guitarString.enqueue(((replaced + guitarString.peek()) / 2) * decayFactor);
+        guitarString.enqueue(((replaced + (Double) guitarString.peek()) / 2) * decayFactor);
     }
 
     public double sample() {
@@ -48,16 +34,7 @@ public class GuitarString {
     }
 
     public static void main(String[] args) {
-        double[] Array1 = { 0.0, 0.0, 0.0, 0.0, 0.0 };
-        GuitarString test = new GuitarString(Array1);
-        StdOut.println(test.length());
-        StdOut.println(test.sample());
-        test.pluck();
-        StdOut.println(test.length());
-        StdOut.println(test.sample());
-
-        double[] sample = { 0.2, 0.4, 0.5, 0.3, -0.2, 0.4, -0.3, 0.0, -0.1, -0.3 };
-        GuitarString test2 = new GuitarString(sample);
+        GuitarString test2 = new GuitarString(2);
         int tics = 25;
         for (int i = 0; i < tics; i++) {
             double loopsample = test2.sample();
